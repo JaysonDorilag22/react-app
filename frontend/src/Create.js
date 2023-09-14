@@ -1,9 +1,13 @@
 import React, {useState} from 'react'
-
+import Nav from "./components/Nav";
+import Title from './components/Title';
 const Create = () => {
   return (
+    <>
+    <Nav/>
     <div className="container p-5">
-        <h1>CREATE POST</h1>
+       
+        <Title title="Create Post"/>
         <br />
         <form>
             <div className="form-group">
@@ -18,11 +22,12 @@ const Create = () => {
                 <label className="text-muted">User</label>
                 <input type="text" className="form-control" placeholder="Your name" required/>
             </div>
-            <div>
+            <div class="mt-3">
                 <button className="btn btn-primary">Create</button>
             </div>
         </form>
     </div>
+    </>
   )
 }
 
