@@ -32,11 +32,11 @@ class PostController extends Controller
         $post = new Post();
         $post->title = $request->title;
         $post->content = $request->content;
-        $post->slug = $request->slug;
+        $post->slug = $request->title;
         $post->user_id = 1;
         $post->save();
         
-        return response()->json(['message'=>'post saved', 'code' => 200]);
+        return response()->json($post);
     }
 
     /**
