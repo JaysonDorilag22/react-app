@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 
 class PostController extends Controller
 {
@@ -53,7 +54,7 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        $post = Post::find($id);
+        $post = Post::with('user')->where('id',$id)->first();
         return response()->json($post);
     }
 
@@ -62,13 +63,16 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $user = User::find($request->userId);
+        $user->name = $request->user;
         $post = Post::find($id);
         $post->title = $request->title;
         $post->content = $request->content;
-        $post->slug = $request->slug;
-        $post->user_id = 1;
+        $post->slug = $request->title;
+        $post->user_id = $user->id;
         $post->save();
         return response()->json(['message'=>'post updated', 'code'=>200]);
+        
 
     }
 

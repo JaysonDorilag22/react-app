@@ -6,7 +6,7 @@ import Header from './components/Header.js';
 import Nav from './components/Nav.js';
 import Title from './components/Title.js';
 import axios from 'axios';
-
+import Container from '@mui/material/Container'
 import PostList from './components/PostList';
 function App() {
   
@@ -30,20 +30,21 @@ function App() {
   console.log(posts);
 
   return (
-
-    <div className="App">
-      <Nav />
-      <Header />
+    <>
+    <Nav />
+    <Container maxWidth="lg">
+    
+     
       <Title title="My Post" />
-      
+
       {posts.map(post => {
         return (
           <PostList post={post} key={post.id}/>
         )
       })}
-      <Footer />
-    </div>
-
+   
+      </Container>
+      </>
   );
 }
 
