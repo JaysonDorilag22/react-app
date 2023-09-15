@@ -35,7 +35,7 @@ function App() {
       <Nav />
       <Header />
       <Title title="My Post" />
-      <button onClick={() => setCounter(counter + 1)}>{counter}</button>
+      
       {posts.map(post => {
         return (
           <PostList post={post} key={post.id}/>
