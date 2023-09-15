@@ -9,10 +9,12 @@ import axios from 'axios';
 
 import PostList from './components/PostList';
 function App() {
+  
+  console.log(process.env.REACT_APP_API);
   const [counter, setCounter] = useState(0);
   const [posts, setPosts] = useState([]);
   const fetchPosts = () => {
-    axios.get(`http://localhost:4000/api/posts`).then(response => {
+    axios.get(`${process.env.REACT_APP_API}/posts`).then(response => {
       console.log(response);
       setPosts(response.data);
     })
@@ -36,7 +38,7 @@ function App() {
       <button onClick={() => setCounter(counter + 1)}>{counter}</button>
       {posts.map(post => {
         return (
-          <PostList post={post} />
+          <PostList post={post} key={post.id}/>
         )
       })}
       <Footer />
