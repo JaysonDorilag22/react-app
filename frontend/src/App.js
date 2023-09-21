@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Footer from './components/Footer.js';
 import Header from './components/Header.js';
+import { Typography } from '@mui/material';
 import Nav from './components/Nav.js';
 import Title from './components/Title.js';
 import axios from 'axios';
@@ -37,11 +38,11 @@ function App() {
      
       <Title title="My Post" />
 
-      {posts.map(post => {
+      {posts.length > 0 ? posts.map(post => {
         return (
-          <PostList post={post} key={post.id}/>
+          <PostList post={post} key={post.id} fetchPost={fetchPosts}/>
         )
-      })}
+      }): <Container><Typography>No posts yet</Typography></Container>}
    
       </Container>
       </>
