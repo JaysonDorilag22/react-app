@@ -9,11 +9,12 @@ const UpdatePost = () => {
     const [state, setState] = useState({
         title: '',
         content: '',
+        
         user: '',
         userId: ''
     });
     let navigate = useNavigate();
-    const {title, content, user} = state;
+    const {title, content, user, userId} = state;
     const handleChange = name => event => {
         console.log('name', name, 'event', event.target.value);
         setState({...state, [name]: event.target.value});
@@ -36,7 +37,7 @@ const UpdatePost = () => {
             console.log(response);
             setPosts(response.data);
             const {title,content,slug,user} = response.data;
-            setState({...state, title, content, slug, user, userId: user.id});
+            setState({...state, title, content, slug, user: user.name, userId: user.id});
           })
             .catch(error => {
               alert('Error fetching posts')
@@ -62,7 +63,7 @@ const UpdatePost = () => {
             </div>
             <div className="form-group">
                 <label className="text-muted">User</label>
-                <input type="text" className="form-control" placeholder="Your name" required onChange={handleChange('user')} value={user.name}/>
+                <input type="text" className="form-control" placeholder="Your name" required onChange={handleChange('user')} value={user}/>
             </div>
             <div class="mt-3">
                 <button className="btn btn-primary" >Update</button>
