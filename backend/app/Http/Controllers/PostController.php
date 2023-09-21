@@ -65,6 +65,7 @@ class PostController extends Controller
     {
         $user = User::find($request->userId);
         $user->name = $request->user;
+        $user->save();
         $post = Post::find($id);
         $post->title = $request->title;
         $post->content = $request->content;
