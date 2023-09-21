@@ -71,7 +71,7 @@ const SinglePost = () => {
           </IconButton>
         }
         title={posts.title}
-        subheader={moment(posts.created_at).format("LL")}
+        subheader={moment(posts.created_at).format("LLL")}
       />
       <CardMedia
         component="img"
