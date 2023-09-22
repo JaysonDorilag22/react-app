@@ -14,7 +14,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-
+import { getUser, logout } from '../helpers';
+import { useNavigate } from 'react-router-dom';
 const pages = ['Home', 'Create', 'Login'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const Nav = () => {
@@ -43,26 +44,9 @@ const Nav = () => {
     const handleClose = () => {
         setOpen(false);
     };
+    const navigate = useNavigate();
     return (
-        // <>
-        //     <div>
-        //         <ul className="nav nav-tabs">
-        //             <li className="nav-item p-3">
-        //                 <Link to="/">Home</Link>
-        //             </li>
-        //             <li className="nav-item p-3">
-        //                 <Link to="/create">Create</Link>
-        //             </li>
-        //             <li className="nav-item p-3">
-        //                 <Button variant="outlined" color="error" onClick={handleClickOpen}>
-        //                     Login
-        //                 </Button>
-        //             </li>
-        //         </ul>
-        //     </div>
 
-        //     {open && <Login open={open} handleClose={handleClose}/>}
-        // </>
         <>
             <AppBar position="static">
                 <Container maxWidth="xl">
@@ -115,17 +99,21 @@ const Nav = () => {
                                     display: { xs: 'block', md: 'none' },
                                 }}
                             >
-                                
-                                    <MenuItem onClick={handleCloseNavMenu}>
-                                        <Button component={Link} to="/" textAlign="center">Home</Button>
-                                    </MenuItem>
-                                    <MenuItem onClick={handleCloseNavMenu}>
-                                        <Button component={Link} to="/create" textAlign="center">Create</Button>
-                                    </MenuItem>
-                                    <MenuItem onClick={handleCloseNavMenu}>
-                                        <Button component={Link} onClick={handleClickOpen} textAlign="center">Login</Button>
-                                    </MenuItem>
-                                
+
+                                <MenuItem onClick={handleCloseNavMenu}>
+                                    <Button component={Link} to="/">Home</Button>
+                                </MenuItem>
+                                {getUser() && <MenuItem onClick={handleCloseNavMenu}>
+                                    <Button component={Link} to="/create">Create</Button>
+                                </MenuItem>}
+                                {!getUser() && <MenuItem onClick={handleCloseNavMenu}>
+                                    <Button component={Link} onClick={handleClickOpen} >Login</Button>
+                                </MenuItem>}
+                                {getUser() && <MenuItem onClick={handleCloseNavMenu}>
+                                    <Button onClick={()=>logout(() => navigate('/'))}>Logout</Button>
+                                </MenuItem>}
+
+
                             </Menu>
                         </Box>
                         <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -158,7 +146,7 @@ const Nav = () => {
                             >
                                 Home
                             </Button>
-                            <Button
+                            {getUser() && <Button
                                 component={Link}
                                 to="/create"
 
@@ -166,16 +154,27 @@ const Nav = () => {
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 Create
-                            </Button>
-                            <Button
+                            </Button>}
+
+                            {!getUser() && <Button
                                 component={Link}
                                 to="/"
                                 onClick={handleClickOpen}
-                                
+
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 Login
-                            </Button>
+                            </Button>}
+                            {getUser() && <Button
+                                component={Link}
+                                to="/"
+                                onClick={()=>logout(() => navigate('/'))}
+
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                Logout
+                            </Button>}
+
                         </Box>
 
                         <Box sx={{ flexGrow: 0 }}>
@@ -210,7 +209,7 @@ const Nav = () => {
                     </Toolbar>
                 </Container>
             </AppBar>
-            {open && <Login open={open} handleClose={handleClose}/>}
+            {open && <Login open={open} handleClose={handleClose} />}
         </>
     )
 }
