@@ -3,6 +3,7 @@ import {useParams, useNavigate} from 'react-router-dom'
 import Nav from './components/Nav'
 import axios from 'axios'
 import Title from './components/Title'
+import {getToken} from './helpers'
 const UpdatePost = () => {
     let {id} = useParams();
     const [posts, setPosts] = useState({});
@@ -13,6 +14,11 @@ const UpdatePost = () => {
         user: '',
         userId: ''
     });
+    const config = {
+        headers:{
+          authorization: `Bearer ${getToken()}`
+        }
+      }
     let navigate = useNavigate();
     const {title, content, user, userId} = state;
     const handleChange = name => event => {
@@ -21,7 +27,7 @@ const UpdatePost = () => {
     }
     const handleSubmit = event => {
         event.preventDefault();
-        axios.put(`${process.env.REACT_APP_API}/posts/${id}`, {title, content, user, userId:posts.user_id}).then(response => {
+        axios.put(`${process.env.REACT_APP_API}/posts/${id}`, {title, content, user, userId:posts.user_id}, config).then(response => {
             console.log(response);
             setState({...state, title: '', content: '', user: '', userId: ''});
             //show success alert
@@ -33,7 +39,7 @@ const UpdatePost = () => {
           });
     }
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API}/posts/${id}/edit`).then(response => {
+        axios.get(`${process.env.REACT_APP_API}/posts/${id}/edit`, config).then(response => {
             console.log(response);
             setPosts(response.data);
             const {title,content,slug,user} = response.data;
@@ -43,7 +49,7 @@ const UpdatePost = () => {
               alert('Error fetching posts')
               console.log(error)
             });
-      }, [id]);
+      }, [id, config]);
   return (
     <>
     <Nav/>

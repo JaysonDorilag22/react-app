@@ -1,8 +1,7 @@
 import logo from './logo.svg';
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Footer from './components/Footer.js';
-import Header from './components/Header.js';
+import {getUser, getToken} from './helpers';
 import { Typography } from '@mui/material';
 import Nav from './components/Nav.js';
 import Title from './components/Title.js';
@@ -14,8 +13,13 @@ function App() {
   console.log(process.env.REACT_APP_API);
   const [counter, setCounter] = useState(0);
   const [posts, setPosts] = useState([]);
+  const config = {
+    headers:{
+      authorization: `Bearer ${getToken()}`
+    }
+  }
   const fetchPosts = () => {
-    axios.get(`${process.env.REACT_APP_API}/posts`).then(response => {
+    axios.get(`${process.env.REACT_APP_API}/posts`,config).then(response => {
       console.log(response);
       setPosts(response.data);
     })

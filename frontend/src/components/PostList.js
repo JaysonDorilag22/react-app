@@ -1,11 +1,16 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
+import {getToken} from '../helpers'
 import axios from 'axios'
 import { Container, Typography, Link, Button } from '@mui/material';
 const PostList = ({ post, fetchPost }) => {
-    
+    const config = {
+        headers:{
+          authorization: `Bearer ${getToken()}`
+        }
+      }
     const deletePost = id => {
-        axios.delete(`${process.env.REACT_APP_API}/posts/${id}`).then(response => {
+        axios.delete(`${process.env.REACT_APP_API}/posts/${id}`,config).then(response => {
             fetchPost();
         }).catch(error => alert('Error deleting post'));
         
