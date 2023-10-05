@@ -10,7 +10,7 @@ const PostList = ({ post, fetchPost }) => {
         }
       }
     const deletePost = id => {
-        axios.delete(`${process.env.REACT_APP_API}/posts/${id}`,config).then(response => {
+        axios.delete(`${process.env.REACT_APP_API}/post/${id}`).then(response => {
             fetchPost();
         }).catch(error => alert('Error deleting post'));
         
@@ -24,18 +24,18 @@ const PostList = ({ post, fetchPost }) => {
     return (
         <>
         <Container maxWidth="lg" sx={{mb:'2rem'}}>
-            <Link href={`/posts/${post.id}`} underline="hover">
+            <Link href={`/post/${post._id}`} underline="hover">
             <Typography variant="h1" gutterBottom sx={{ color: 'red' }} component="h2">
                 {post.title}
             </Typography>
             </Link>
 
             <Typography variant="body1" sx={{mb:'2rem'}}>{post.content}</Typography>
-            <Link href={`/posts/edit/${post.id}`}>
+            <Link href={`/post/edit/${post._id}`}>
             <Button  variant="contained" color="primary">Edit</Button>
             </Link>
             
-            <Button  onClick={()=>deleteConfirm(post.id)} variant="contained" color="error" className="ms-3">Delete</Button>
+            <Button  onClick={()=>deleteConfirm(post._id)} variant="contained" color="error" className="ms-3">Delete</Button>
             
         </Container >
         </>

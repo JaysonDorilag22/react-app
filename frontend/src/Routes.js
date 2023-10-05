@@ -11,22 +11,25 @@ const RoutedApp = () => {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/create" exact="true" element={
-          <PrivateRoute redirectTo="/">
-            <Create />
-          </PrivateRoute>
+          // <PrivateRoute redirectTo="/">
+          //   <Create />
+          // </PrivateRoute>
+          <Create />
         }
         />
         {/* <Route path="/create" element={<Create/>}/> */}
-        <Route path="/posts/:id" exact="true" element={
-          <PrivateRoute redirectTo="/">
-            <SinglePost />
-          </PrivateRoute>
+        <Route path="/post/:id" exact="true" element={
+          // <PrivateRoute redirectTo="/">
+          //   <SinglePost />
+          // </PrivateRoute>
+          <SinglePost />
         } />
 
-        <Route path="/posts/edit/:id" exact="true" element={
-          <PrivateRoute redirectTo="/">
-            <UpdatePost />
-          </PrivateRoute>
+        <Route path="/post/edit/:id" exact="true" element={
+          // <PrivateRoute redirectTo="/">
+          //   <UpdatePost />
+          // </PrivateRoute>
+          <UpdatePost />
         } />
 
       </Routes>

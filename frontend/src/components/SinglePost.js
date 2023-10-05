@@ -43,7 +43,7 @@ const SinglePost = () => {
    
       // fetchPosts();
       useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API}/posts/${id}`).then(response => {
+        axios.get(`${process.env.REACT_APP_API}/post/${id}`).then(response => {
             console.log(response);
             setPosts(response.data);
           })
@@ -71,7 +71,7 @@ const SinglePost = () => {
           </IconButton>
         }
         title={posts.title}
-        subheader={moment(posts.created_at).format("LLL")}
+        subheader={moment(posts.createdAt).format("LLL")}
       />
       <CardMedia
         component="img"

@@ -19,9 +19,10 @@ function App() {
     }
   }
   const fetchPosts = () => {
-    axios.get(`${process.env.REACT_APP_API}/posts`,config).then(response => {
+    axios.get(`${process.env.REACT_APP_API}/posts`).then(response => {
       console.log(response);
       setPosts(response.data);
+      
     })
       .catch(error => {
         alert('Error fetching posts')
@@ -44,7 +45,7 @@ function App() {
 
       {posts.length > 0 ? posts.map(post => {
         return (
-          <PostList post={post} key={post.id} fetchPost={fetchPosts}/>
+          <PostList post={post} key={post._id} fetchPost={fetchPosts}/>
         )
       }): <Container><Typography>No posts yet</Typography></Container>}
    

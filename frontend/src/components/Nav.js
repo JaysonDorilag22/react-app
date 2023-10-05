@@ -106,6 +106,7 @@ const Nav = () => {
                                 {getUser() && <MenuItem onClick={handleCloseNavMenu}>
                                     <Button component={Link} to="/create">Create</Button>
                                 </MenuItem>}
+                                
                                 {!getUser() && <MenuItem onClick={handleCloseNavMenu}>
                                     <Button component={Link} onClick={handleClickOpen} >Login</Button>
                                 </MenuItem>}
@@ -155,6 +156,15 @@ const Nav = () => {
                             >
                                 Create
                             </Button>}
+                            <Button
+                                component={Link}
+                                to="/create"
+
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                Create
+                            </Button>
 
                             {!getUser() && <Button
                                 component={Link}

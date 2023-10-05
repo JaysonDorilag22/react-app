@@ -20,14 +20,14 @@ const UpdatePost = () => {
         }
       }
     let navigate = useNavigate();
-    const {title, content, user, userId} = state;
+    const {title, content, user} = state;
     const handleChange = name => event => {
         console.log('name', name, 'event', event.target.value);
         setState({...state, [name]: event.target.value});
     }
     const handleSubmit = event => {
         event.preventDefault();
-        axios.put(`${process.env.REACT_APP_API}/posts/${id}`, {title, content, user, userId:posts.user_id}, config).then(response => {
+        axios.put(`${process.env.REACT_APP_API}/post/${id}`, {title, content, user}).then(response => {
             console.log(response);
             setState({...state, title: '', content: '', user: '', userId: ''});
             //show success alert
@@ -39,17 +39,17 @@ const UpdatePost = () => {
           });
     }
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API}/posts/${id}/edit`, config).then(response => {
+        axios.get(`${process.env.REACT_APP_API}/post/${id}`).then(response => {
             console.log(response);
             setPosts(response.data);
-            const {title,content,slug,user} = response.data;
-            setState({...state, title, content, slug, user: user.name, userId: user.id});
+            const {title,content,slug, user} = response.data;
+            setState({...state, title, content, slug, user});
           })
             .catch(error => {
               alert('Error fetching posts')
               console.log(error)
             });
-      }, [id, config]);
+      }, []);
   return (
     <>
     <Nav/>

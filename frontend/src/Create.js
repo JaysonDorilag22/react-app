@@ -8,7 +8,7 @@ const Create = () => {
     const [state, setState] = useState({
         title: '',
         content: '',
-        user: getUser()
+        // user: getUser()
     });
     let navigate = useNavigate();
     const { title, content, user } = state;
@@ -25,7 +25,7 @@ const Create = () => {
     }
     const handleSubmit = event => {
         event.preventDefault();
-        axios.post(`${process.env.REACT_APP_API}/posts`, { title, content, user }, config).then(response => {
+        axios.post(`${process.env.REACT_APP_API}/post`, { title, content, user }).then(response => {
             console.log(response);
             setState({ ...state, title: '', content: '', user: '' });
             //show success alert
@@ -33,7 +33,7 @@ const Create = () => {
             return navigate('/');
         }).catch(error => {
             alert('Error creating posts')
-            console.log(error.response.data.error)
+            console.log(error)
         });
     }
     return (
